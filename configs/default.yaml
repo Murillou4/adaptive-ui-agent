@@ -1,0 +1,71 @@
+# Default configuration for Adaptive UI Agent
+# Based on paper 2312.01203v3
+
+env:
+  size: 64                    # Environment resolution (64x64 pixels)
+  target_size: 12             # Size of target/obstacle squares
+  cursor_size: 4              # Cursor size in pixels
+  max_steps: 200              # Max steps per episode
+  
+  # Reward configuration
+  rewards:
+    click_target: 1.0         # Reward for clicking correct target
+    click_obstacle: -1.0      # Penalty for clicking obstacle
+    click_background: -0.1    # Penalty for clicking background
+    step_penalty: -0.01       # Small penalty per step to encourage efficiency
+
+vqvae:
+  latent_grid: 6              # Latent grid size (6x6)
+  codebook_size: 512          # Number of codebook entries
+  embedding_dim: 64           # Dimension of each embedding
+  commitment_cost: 1.0        # β for commitment loss (as per paper)
+  
+  # Architecture
+  encoder_channels: [32, 64, 128, 64]
+  decoder_channels: [64, 128, 64, 32]
+  
+  # Training
+  learning_rate: 1.0e-3
+  batch_size: 64
+  num_epochs: 100
+
+ppo:
+  hidden_dim: 256             # Hidden layer size
+  num_layers: 2               # Number of hidden layers
+  clip_ratio: 0.2             # PPO clipping parameter
+  learning_rate: 3.0e-4
+  gamma: 0.99                 # Discount factor
+  gae_lambda: 0.95            # GAE parameter
+  value_coef: 0.5             # Value loss coefficient
+  entropy_coef: 0.01          # Entropy bonus coefficient
+  max_grad_norm: 0.5          # Gradient clipping
+  
+  # Training
+  num_envs: 1                 # Number of parallel environments
+  steps_per_update: 128       # Steps before PPO update
+  ppo_epochs: 4               # PPO epochs per update
+  mini_batch_size: 32         # Mini-batch size for PPO
+
+training:
+  vqvae_epochs: 100           # VQ-VAE pre-training epochs
+  ppo_delay_epochs: 50        # Wait for VQ-VAE convergence before PPO
+  total_episodes: 10000       # Total training episodes
+  
+  # Continual RL
+  continual_rl_enabled: true
+  rule_switch_at: 5000        # Episode to trigger first rule change
+  adaptation_window: 1000     # Episodes to measure adaptation speed
+  
+  # Logging
+  log_interval: 100           # Log every N episodes
+  save_interval: 1000         # Save checkpoint every N episodes
+  
+  # Paths
+  checkpoint_dir: "data/checkpoints"
+  log_dir: "runs"
+  dataset_dir: "data/screenshots"
+
+dataset:
+  num_samples: 5000           # Number of screenshots to generate
+  include_variations: true    # Include color/position variations
+  noise_level: 0.02           # Light noise augmentation

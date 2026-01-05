@@ -1,0 +1,97 @@
+# LLM Configuration for Adaptive UI Agent
+# Rename this file to llm_config.yaml and fill in your API keys
+
+# =============================================================================
+# DEFAULT PROVIDER SETTINGS
+# =============================================================================
+default_provider: "openai"  # openai, anthropic, google, xai, ollama, litellm
+
+# =============================================================================
+# OPENAI (GPT-5.2 Family)
+# =============================================================================
+openai:
+  api_key: "${OPENAI_API_KEY}"  # Or paste your key directly
+  model: "gpt-5.2-instant"  # gpt-5.2-instant, gpt-5.2-thinking, gpt-5.2-pro
+  base_url: null  # Optional: custom endpoint
+  temperature: 0.2
+  max_tokens: 2000
+
+# =============================================================================
+# ANTHROPIC (Claude 4.5 Family)
+# =============================================================================
+anthropic:
+  api_key: "${ANTHROPIC_API_KEY}"
+  model: "claude-4.5-sonnet"  # claude-4.5-opus, claude-4.5-sonnet, claude-4.5-haiku
+  temperature: 0.2
+  max_tokens: 2000
+
+# =============================================================================
+# GOOGLE (Gemini 2.5/3 Family)
+# =============================================================================
+google:
+  api_key: "${GOOGLE_API_KEY}"
+  model: "gemini-2.5-flash"  # gemini-2.5-pro, gemini-2.5-flash, gemini-3-pro
+  temperature: 0.2
+  max_tokens: 2000
+
+# =============================================================================
+# XAI (Grok 4 Family)
+# =============================================================================
+xai:
+  api_key: "${XAI_API_KEY}"
+  model: "grok-4"  # grok-3, grok-3-mini, grok-4, grok-4.1
+  base_url: "https://api.x.ai/v1"
+  temperature: 0.2
+  max_tokens: 2000
+
+# =============================================================================
+# OLLAMA (Local Models - Llama 4, Qwen 3, etc.)
+# =============================================================================
+ollama:
+  base_url: "http://localhost:11434"
+  model: "llama4:scout"  # llama4:scout, llama4:maverick, qwen3, gemma3
+  temperature: 0.2
+
+# =============================================================================
+# LITELLM (Universal Proxy - Supports 100+ models)
+# =============================================================================
+litellm:
+  # LiteLLM format: "provider/model"
+  # Examples:
+  #   - "openai/gpt-5.2-thinking"
+  #   - "anthropic/claude-4.5-opus"
+  #   - "gemini/gemini-2.5-pro"
+  #   - "ollama/llama4:maverick"
+  #   - "deepseek/deepseek-r1"
+  #   - "groq/mixtral-8x7b"
+  model: "openai/gpt-5.2-instant"
+  api_key: "${LITELLM_API_KEY}"  # Provider-specific key
+  temperature: 0.2
+  max_tokens: 2000
+
+# =============================================================================
+# CUSTOM/SELF-HOSTED
+# =============================================================================
+custom:
+  base_url: "http://localhost:8000/v1"
+  api_key: "your-custom-key"
+  model: "custom-model"
+  temperature: 0.2
+
+# =============================================================================
+# FALLBACK SETTINGS
+# =============================================================================
+fallback:
+  enabled: true
+  providers: ["openai", "anthropic", "google"]  # Try in order if main fails
+  max_retries: 3
+  retry_delay: 1.0
+
+# =============================================================================
+# COST LIMITS (Optional)
+# =============================================================================
+cost_limits:
+  enabled: false
+  max_cost_per_request: 0.10  # USD
+  max_cost_per_session: 5.00  # USD
+  warn_at_percentage: 80

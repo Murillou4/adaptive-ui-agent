@@ -1,0 +1,30 @@
+# Adaptive UI Agent - Dependencies
+# Based on paper 2312.01203v3: Discrete Representations for Continual RL
+
+# Core ML Framework
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Environment
+pygame>=2.5.0
+gymnasium>=0.29.0
+
+# Data & Utils
+numpy>=1.24.0
+Pillow>=10.0.0
+PyYAML>=6.0.0
+
+# Logging & Visualization
+tensorboard>=2.14.0
+matplotlib>=3.7.0
+tqdm>=4.65.0
+
+# Computer Vision (Visual Detectors)
+opencv-python>=4.8.0
+jsonschema>=4.19.0
+
+# LLM Integration (Universal Provider)
+litellm>=1.0.0
+
+# Testing
+pytest>=7.4.0
