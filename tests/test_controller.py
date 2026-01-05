@@ -37,8 +37,11 @@ class TestMetaController:
             result = await controller.achieve_goal("Search for cats on Google", env)
             
             assert result.success
-            assert len(result.executed_skills) == 3 # Click, Type, Limit
-            assert mock_create.call_count == 3
+            # Should be: Hotkey(Win+R), Type(URL), Hotkey(Enter), Click, Type, Hotkey (6 steps)
+            assert len(result.executed_skills) == 6
+            assert result.executed_skills[0] == "hotkey"
+            assert result.executed_skills[1] == "type_text"
+            assert mock_create.call_count == 6
             
     @pytest.mark.asyncio
     async def test_skill_failure(self):

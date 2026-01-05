@@ -249,12 +249,18 @@ class DynamicRewardFunction:
             
             if const_type == ConstraintType.ALIGNED_HORIZONTAL:
                 satisfied = alignment.is_aligned_horizontal
+                if not satisfied:
+                    print(f"DEBUG: H-Align Fail (var={alignment.horizontal_variance:.1f})")
             elif const_type == ConstraintType.ALIGNED_VERTICAL:
                 satisfied = alignment.is_aligned_vertical
+                if not satisfied:
+                    print(f"DEBUG: V-Align Fail (var={alignment.vertical_variance:.1f})")
             elif const_type == ConstraintType.CENTERED:
                 satisfied = centered
             elif const_type == ConstraintType.EQUAL_SPACING:
                 satisfied = spacing.is_equal
+                if not satisfied:
+                    print(f"DEBUG: Spacing Fail (var={spacing.variance:.1f})")
             
             if satisfied:
                 score += 1.0

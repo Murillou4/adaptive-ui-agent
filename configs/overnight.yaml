@@ -1,0 +1,65 @@
+# Overnight configuration for GTX 1050 Ti (4GB VRAM)
+# Optimized for stability and performance on 4GB GPU
+
+env:
+  size: 64
+  target_size: 12
+  cursor_size: 4
+  max_steps: 200
+  
+  rewards:
+    click_target: 1.0
+    click_obstacle: -1.0
+    click_background: -0.1
+    step_penalty: -0.01
+
+vqvae:
+  latent_grid: 6
+  codebook_size: 512
+  embedding_dim: 64
+  commitment_cost: 1.0
+  
+  encoder_channels: [32, 64, 128, 64]
+  decoder_channels: [64, 128, 64, 32]
+  
+  learning_rate: 1.0e-3
+  batch_size: 64              # Safe for 4GB VRAM
+  num_epochs: 100
+
+ppo:
+  hidden_dim: 512             # Large network is fine
+  num_layers: 2
+  clip_ratio: 0.2
+  learning_rate: 3.0e-4
+  gamma: 0.99
+  gae_lambda: 0.95
+  value_coef: 0.5
+  entropy_coef: 0.01
+  max_grad_norm: 0.5
+  
+  # Training Optimizations
+  num_envs: 4                 # Reduced envs to save VRAM
+  steps_per_update: 256       
+  ppo_epochs: 8               # High epochs for better learning per batch
+  mini_batch_size: 32         # Safe for 4GB VRAM
+
+training:
+  vqvae_epochs: 100
+  ppo_delay_epochs: 50
+  total_episodes: 2000        # Per task
+  
+  continual_rl_enabled: true
+  rule_switch_at: 5000
+  adaptation_window: 1000
+  
+  log_interval: 50
+  save_interval: 500
+  
+  checkpoint_dir: "checkpoints"
+  log_dir: "overnight_logs"
+  dataset_dir: "data/screenshots"
+
+dataset:
+  num_samples: 5000           # Reduced samples to save disk/generation time
+  include_variations: true
+  noise_level: 0.05

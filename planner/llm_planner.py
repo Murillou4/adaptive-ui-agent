@@ -27,6 +27,7 @@ from planner.goal_dsl import (
     sanitize_plan,
     PLAN_SCHEMA,
 )
+from planner.llm_provider import LiteLLMPlannerProvider
 
 
 # =============================================================================
@@ -446,6 +447,8 @@ def create_planner(
         provider = OpenAIProvider(**kwargs)
     elif provider_type == "ollama":
         provider = OllamaProvider(**kwargs)
+    elif provider_type == "google":
+        provider = LiteLLMPlannerProvider(provider="google", **kwargs)
     else:
         raise ValueError(f"Unknown provider type: {provider_type}")
     

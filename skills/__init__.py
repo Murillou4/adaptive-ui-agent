@@ -112,3 +112,9 @@ def load_skill_config(path: str):
     """Load skill configuration/overrides."""
     # Placeholder for loading custom parameters or overrides
     pass
+
+# Import submodules to register skills
+from skills import cursor_skills
+from skills import keyboard_skills
+from skills import navigation_skills
+from skills import desktop_skills

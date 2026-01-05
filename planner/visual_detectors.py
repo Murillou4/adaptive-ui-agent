@@ -261,7 +261,7 @@ def detect_circles(
 
 def detect_alignment(
     elements: List[DetectedElement],
-    tolerance: float = 5.0
+    tolerance: float = 10.0
 ) -> AlignmentInfo:
     """
     Detect if elements are aligned horizontally or vertically.
@@ -297,7 +297,7 @@ def detect_alignment(
 
 def detect_spacing(
     elements: List[DetectedElement],
-    tolerance: float = 5.0
+    tolerance: float = 10.0
 ) -> SpacingInfo:
     """
     Detect spacing between consecutive elements.

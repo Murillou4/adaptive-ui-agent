@@ -10,7 +10,7 @@ from typing import List, Optional
 from dataclasses import asdict
 
 from training.curriculum_manager import TaskDefinition, CurriculumManager
-from planner.llm_provider import LLMProvider, OpenAIProvider
+from planner.llm_planner import LLMProvider, OpenAIProvider
 
 logger = logging.getLogger(__name__)
 

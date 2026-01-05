@@ -137,13 +137,45 @@ class MetaController:
         
         if "google" in goal_lower and "search" in goal_lower:
             # Example: "Search for cats on Google"
-            # 1. Click search bar
-            plan.append(("click", {"element_query": "input field", "x": None, "y": None})) # or specific coords
-            # 2. Type text
-            search_query = goal_lower.replace("search for", "").replace("on google", "").strip()
-            plan.append(("type_text", {"text": search_query, "input_query": None}))
-            # 3. Press Enter
+            
+            # 1. Open Default Browser via Run Dialog (Win+R)
+            # This is universal: works for Chrome, Edge, Firefox, whatever is default.
+            plan.append(("hotkey", {"keys": ("win", "r")}))
+            
+            # Brief wait for Run dialog
+            # (We rely on retry/wait in execution, or we can add a dummy wait skill if needed,
+            # but usually type_text has a small delay)
+            
+            # 2. Type URL
+            plan.append(("type_text", {"text": "https://www.google.com", "clear_first": False}))
             plan.append(("hotkey", {"keys": ("enter",)}))
+            
+            # 3. Wait for browser to load (heuristic wait could be improved with visual check, 
+            # but for now we rely on the next skill's applicability check retry)
+            
+            # 4. Click search bar (input field)
+            # The page usually auto-focuses, but we included this for robustness.
+            # If auto-focused, typing immediately works.
+            # Let's try typing explicitly.
+            
+            search_query = goal_lower.replace("search for", "").replace("on google", "").strip()
+            
+            # We add a "wait" using a visual check would be best. 
+            # For now, we assume the next step will retry until applicable.
+            
+            plan.append(("click", {"element_query": "input field"}))
+            plan.append(("type_text", {"text": search_query}))
+            plan.append(("hotkey", {"keys": ("enter",)}))
+            
+        elif "open" in goal_lower and ("notepad" in goal_lower or "calculator" in goal_lower or "app" in goal_lower):
+            # General "Open [App]" handler
+            app_name = goal_lower.replace("open", "").strip()
+            plan.append(("open_app", {"app_name": app_name}))
+            
+            # If text is involved (e.g. "Open notepad and type...")
+            if "type" in goal_lower:
+                text_content = goal_lower.split("type")[-1].strip()
+                plan.append(("type_text", {"text": text_content}))
             
         elif "click" in goal_lower:
             # "Click the submit button"

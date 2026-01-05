@@ -301,7 +301,7 @@ def main():
     parser = argparse.ArgumentParser(description="LLM-RL Integration")
     parser.add_argument('--config', '-c', default='configs/default.yaml')
     parser.add_argument('--provider', '-p', default='mock',
-                        choices=['mock', 'openai', 'ollama'])
+                        choices=['mock', 'openai', 'ollama', 'google'])
     parser.add_argument('--goal', '-g', type=str, default=None,
                         help='Single goal to train on')
     parser.add_argument('--interactive', '-i', action='store_true',

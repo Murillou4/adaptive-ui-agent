@@ -1,0 +1,32 @@
+levels:
+  - name: "Level 1: Basic Elements"
+    threshold: 1.0
+    tasks:
+      - id: "basics_rect"
+        name: "Create Rectangle"
+        description: "Learn to create a single rectangle"
+        goal: "Cria um retangulo azul"
+        difficulty: 1
+        timeout: 100
+      
+      - id: "basics_button"
+        name: "Create Button"
+        description: "Learn to create a button"
+        goal: "Cria um botão vermelho"
+        difficulty: 1
+
+  - name: "Level 2: Basic Alignment"
+    threshold: 0.8
+    tasks:
+      - id: "align_2_ver"
+        name: "Vertical Alignment"
+        description: "Align two elements vertically"
+        goal: "Cria 2 quadrados verdes alinhados verticalmente"
+        difficulty: 2
+        requires: ["basics_rect"]
+      
+      - id: "align_2_hor"
+        name: "Horizontal Alignment"
+        description: "Align two elements horizontally"
+        goal: "Cria 2 quadrados azuis alinhados horizontalmente"
+        difficulty: 2
