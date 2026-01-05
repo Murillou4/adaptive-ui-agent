@@ -29,7 +29,7 @@ anthropic:
 # GOOGLE (Gemini 2.5/3 Family)
 # =============================================================================
 google:
-  api_key: "AIzaSyBQECxHFSBU1hAydqKV3PCIj1mB50PDAJI"
+  api_key: "${GOOGLE_API_KEY}"
   model: "gemini-2.5-flash"  # gemini-2.5-pro, gemini-2.5-flash, gemini-3-pro
   temperature: 0.2
   max_tokens: 2000
