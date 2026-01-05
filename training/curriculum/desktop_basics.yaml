@@ -1,0 +1,54 @@
+# Desktop Basics Curriculum
+# Defines the learning path for basic desktop interaction
+
+levels:
+  - name: "Mouse Basics"
+    threshold: 1.0
+    tasks:
+      - id: "move_center"
+        name: "Move to Center"
+        goal: "Move mouse to the center of the screen"
+        difficulty: 1
+        timeout: 50
+        
+      - id: "click_random"
+        name: "Click Random"
+        goal: "Click anywhere on the screen"
+        requires: ["move_center"]
+        difficulty: 1
+
+  - name: "Icon Interaction"
+    threshold: 0.8
+    tasks:
+      - id: "find_recycle_bin"
+        name: "Find Trash"
+        goal: "Move mouse to the Recycle Bin icon"
+        requires: ["click_random"]
+        difficulty: 2
+        
+      - id: "select_icon"
+        name: "Select Icon"
+        goal: "Click on the Recycle Bin icon"
+        requires: ["find_recycle_bin"]
+        difficulty: 2
+
+  - name: "Window Management"
+    threshold: 0.8
+    tasks:
+      - id: "open_explorer"
+        name: "Open Explorer"
+        goal: "Open File Explorer using hotkey win+e"
+        difficulty: 3
+        
+      - id: "close_window"
+        name: "Close Window"
+        goal: "Click the close button of the active window"
+        requires: ["open_explorer"]
+        difficulty: 3
+
+  - name: "Text Input"
+    tasks:
+      - id: "search_cats"
+        name: "Search Cats"
+        goal: "Open Chrome and search for cats"
+        difficulty: 4

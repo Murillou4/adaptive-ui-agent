@@ -1,12 +1,3 @@
-# Adaptive UI Agent
-
-> **Agente de RL Visual que aprende a executar tarefas UI a partir de linguagem natural**
-
-Baseado no paper **arXiv 2312.01203v3**: "Harnessing Discrete Representations for Continual RL"
-
----
-
-## 🧠 Arquitetura
 
 ```
 User (texto) → LLM → Plan (JSON) → Translator → Reward → RL (PPO) → Ações
